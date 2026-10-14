@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Friends Auction</title>
+<style>
+:root{--bg:#f6f4ef;--fg:#1c1b18;--card:#fff;--mut:#7a766c;--ac:#d9480f;--ok:#2b8a3e;--bd:#e3dfd3}
+@media (prefers-color-scheme:dark){:root{--bg:#14130f;--fg:#f1eee6;--card:#1e1d18;--mut:#9a958a;--ac:#ff8a4c;--ok:#69db7c;--bd:#33312a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.4 system-ui,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+#app{max-width:480px;margin:0 auto;padding:16px}h1{font-size:26px;margin:8px 0 2px}h2{font-size:14px;margin:18px 0 8px;color:var(--mut);text-transform:uppercase}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:12px}
+input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--fg);font-size:16px;margin-bottom:8px}
+button{font:inherit;font-weight:600;padding:12px;border-radius:10px;border:0;background:var(--ac);color:#fff;width:100%}
+button.alt{background:none;color:var(--fg);border:1px solid var(--bd)}button:disabled{opacity:.4}
+.row{display:flex;gap:8px}.row>*{flex:1}.mut{color:var(--mut);font-size:14px}.ok{color:var(--ok)}
+.big{font-size:44px;font-weight:800}.code{font-size:30px;font-weight:800;letter-spacing:.15em}.tmr{font-size:30px;font-weight:800;color:var(--ac)}
+.li{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bd)}
+</style></head><body><div id="app"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+var s=io(),$=function(q){return document.querySelector(q)},S=null,rcv=0,d={nm:"",c:"",n:"",b:"5"},pid,saved="";
+try{pid=localStorage.getItem("pid")||(localStorage.setItem("pid",Math.random().toString(36).slice(2,10)),localStorage.getItem("pid"));d.nm=localStorage.getItem("nm")||"";saved=sessionStorage.getItem("code")||""}catch(e){pid=Math.random().toString(36).slice(2,10)}
+function esc(x){var e=document.createElement("div");e.textContent=x==null?"":x;return e.innerHTML}
+s.on("connect",function(){if(saved)s.emit("join",{code:saved,name:d.nm,pid:pid},function(){})});
+s.on("state",function(x){S=x;rcv=Date.now();try{sessionStorage.setItem("code",x.code)}catch(e){}render()});
+function pl(){return Object.keys(S.players).map(function(i){var p=S.players[i];return '<div class="li"><span>'+esc(p.name)+(i===pid?" (you)":"")+(S.host===i?" ★":"")+'</span><span class="mut">₹'+p.purse+'L · '+p.squad.length+' won</span></div>'}).join("")}
+function render(){var f=document.activeElement,id=f&&f.id,pos=f&&f.selectionStart,h;
+if(!S){h='<h1>🔨 Friends Auction</h1><p class="mut">Bid on your friends. Join from any phone.</p><div class="card"><input id="nm" placeholder="Your name" maxlength="20" value="'+esc(d.nm)+'"><button id="cr">Create room</button></div><div class="card"><input id="cd" placeholder="Room code" maxlength="5" value="'+esc(d.c)+'"><button class="alt" id="jn">Join room</button></div><div class="mut" id="er"></div>'}
+else if(S.phase==="lobby"){var host=S.host===pid;h='<h1>Lobby</h1><div class="mut">Share this code</div><div class="code">'+esc(S.code)+'</div><h2>Players</h2><div class="card">'+pl()+'</div><h2>Up for auction ('+S.items.length+')</h2><div class="card">'+(S.items.map(function(i){return '<div class="li"><span>'+esc(i.n)+'</span><span class="mut">base ₹'+i.b+'L</span></div>'}).join("")||'<span class="mut">None yet</span>')+'</div>';
+ h+=host?'<div class="card"><input id="in" placeholder="Friend name" maxlength="24" value="'+esc(d.n)+'"><div class="row"><input id="ib" type="number" min="1" value="'+esc(d.b)+'"><button id="ad">Add</button></div></div><button id="go"'+(S.items.length?"":" disabled")+'>Start auction</button>':'<div class="card mut">Waiting for host to start…</div>'}
+else if(S.phase==="live"){var it=S.items[S.idx],b=S.bid,lead=S.bidder===pid,p=S.players[pid]||{purse:0};
+ h='<div class="mut">Room '+esc(S.code)+' · '+(S.idx+1)+'/'+S.items.length+'</div>'+(S.last?'<div class="ok">'+esc(S.last)+'</div>':'')+'<div class="card"><div class="mut">Now bidding</div><h1>'+esc(it.n)+'</h1><div class="mut">Base ₹'+it.b+'L</div><div class="big">'+(b?'₹'+b+'L':'—')+'</div><div class="mut">'+(b?(lead?"You lead":esc(S.bidderName)+" leads"):"No bids yet")+'</div><div class="tmr" id="t"></div></div>';
+ h+=b?'<div class="row">'+[1,5,10].map(function(n){return '<button data-b="'+(b+n)+'"'+(lead?" disabled":"")+'>+'+n+'L</button>'}).join("")+'</div>':'<button data-b="'+it.b+'">Bid ₹'+it.b+'L</button>';
+ h+='<h2>Purses</h2><div class="card">'+pl()+'</div><div class="mut">Your purse: ₹'+p.purse+'L</div>'}
+else{h='<h1>🏆 Auction over</h1><div class="ok">'+esc(S.last)+'</div>';Object.keys(S.players).forEach(function(i){var p=S.players[i];h+='<div class="card"><b>'+esc(p.name)+'</b> <span class="mut">₹'+p.purse+'L left</span>'+(p.squad.map(function(q){return '<div class="li"><span>'+esc(q.n)+'</span><span class="mut">₹'+q.p+'L</span></div>'}).join("")||'<div class="mut">Won nobody</div>')+'</div>'})}
+$("#app").innerHTML=h;
+var on=function(q,fn){var e=$(q);if(e)e.onclick=fn},inp=function(q,k){var e=$(q);if(e)e.oninput=function(){d[k]=e.value}};
+inp("#nm","nm");inp("#cd","c");inp("#in","n");inp("#ib","b");
+on("#cr",function(){if(!d.nm.trim())return;try{localStorage.setItem("nm",d.nm)}catch(e){}s.emit("create",{name:d.nm,pid:pid})});
+on("#jn",function(){if(!d.nm.trim()||!d.c.trim())return;try{localStorage.setItem("nm",d.nm)}catch(e){}s.emit("join",{code:d.c,name:d.nm,pid:pid},function(e){if(e)$("#er").textContent=e})});
+on("#ad",function(){if(d.n.trim()){s.emit("add",{n:d.n,b:d.b});d.n=""}});on("#go",function(){s.emit("start")});
+document.querySelectorAll("[data-b]").forEach(function(e){e.onclick=function(){s.emit("bid",+e.dataset.b)}});
+if(id&&$("#"+id)){var e=$("#"+id);e.focus();try{e.setSelectionRange(pos,pos)}catch(x){}}}
+setInterval(function(){var t=$("#t");if(t&&S)t.textContent=Math.max(0,Math.ceil((S.left-(Date.now()-rcv))/1000))+"s"},250);
+render();
+</script></body></html>

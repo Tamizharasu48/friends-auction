@@ -1,43 +1,69 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Friends Auction</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0b1026">
+<title>Friends Auction</title>
 <style>
-:root{--bg:#f6f4ef;--fg:#1c1b18;--card:#fff;--mut:#7a766c;--ac:#d9480f;--ok:#2b8a3e;--bd:#e3dfd3}
-@media (prefers-color-scheme:dark){:root{--bg:#14130f;--fg:#f1eee6;--card:#1e1d18;--mut:#9a958a;--ac:#ff8a4c;--ok:#69db7c;--bd:#33312a}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.4 system-ui,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
-#app{max-width:480px;margin:0 auto;padding:16px}h1{font-size:26px;margin:8px 0 2px}h2{font-size:14px;margin:18px 0 8px;color:var(--mut);text-transform:uppercase}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:12px}
-input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--fg);font-size:16px;margin-bottom:8px}
-button{font:inherit;font-weight:600;padding:12px;border-radius:10px;border:0;background:var(--ac);color:#fff;width:100%}
-button.alt{background:none;color:var(--fg);border:1px solid var(--bd)}button:disabled{opacity:.4}
-.row{display:flex;gap:8px}.row>*{flex:1}.mut{color:var(--mut);font-size:14px}.ok{color:var(--ok)}
-.big{font-size:44px;font-weight:800}.code{font-size:30px;font-weight:800;letter-spacing:.15em}.tmr{font-size:30px;font-weight:800;color:var(--ac)}
-.li{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bd)}
-</style></head><body><div id="app"></div>
+:root{--bg:#0b1026;--card:#151b3a;--card2:#1c2450;--fg:#eef1ff;--mut:#98a2d0;--gold:#ffc83d;--pink:#ff4d8d;--ok:#35e0a1;--bd:#2a3366}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 50% -100px,#2b2f7a,var(--bg));background-attachment:fixed;color:var(--fg);font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);min-height:100vh}
+#app{max-width:480px;margin:0 auto;padding:14px 16px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:6px 0 12px;font-weight:800}
+.pill{background:var(--card2);border:1px solid var(--bd);border-radius:99px;padding:4px 12px;font-size:13px;color:var(--gold)}
+h1{font-size:30px;margin:0 0 6px;letter-spacing:-.02em}h2{font-size:12px;margin:20px 0 8px;color:var(--mut);text-transform:uppercase;letter-spacing:.12em}
+.hero{background:linear-gradient(135deg,#ff4d8d,#ffc83d);color:#2b1200;border-radius:20px;padding:22px 18px;margin-bottom:14px}.hero h1{margin:0 0 6px}.hero p{margin:0;font-weight:600}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:12px}
+input{width:100%;padding:13px;border-radius:12px;border:1px solid var(--bd);background:#0e1431;color:var(--fg);font-size:16px;margin-bottom:8px}
+input:focus{outline:2px solid var(--gold);border-color:transparent}
+button{font:inherit;font-weight:700;padding:13px;border-radius:12px;border:0;background:linear-gradient(135deg,var(--gold),#ff9f1c);color:#2b1200;width:100%;cursor:pointer;transition:transform .08s}
+button:active{transform:scale(.97)}button.alt{background:var(--card2);color:var(--fg);border:1px solid var(--bd)}button.red{background:linear-gradient(135deg,var(--pink),#ff2e63);color:#fff}button:disabled{opacity:.35}
+button.x{width:auto;padding:2px 10px;background:none;color:var(--mut);font-size:20px}
+.row{display:flex;gap:8px}.row>*{flex:1}.mut{color:var(--mut);font-size:14px}.ok{color:var(--ok);font-weight:700}
+.code{font-size:38px;font-weight:900;letter-spacing:.2em;color:var(--gold)}
+.big{font-size:56px;font-weight:900;line-height:1.1;color:var(--gold);animation:pop .25s}@keyframes pop{from{transform:scale(1.2)}to{transform:scale(1)}}
+.li{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bd)}.li:last-child{border:0}
+.av{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;font-weight:800;font-size:14px;margin-right:8px;color:#fff;vertical-align:middle}
+.bar{height:8px;background:var(--card2);border-radius:9px;overflow:hidden;margin:10px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--ok),var(--gold),var(--pink));width:100%}
+.tmr{font-size:28px;font-weight:900}.step{display:flex;gap:10px;padding:6px 0}.step b{background:var(--gold);color:#2b1200;border-radius:50%;min-width:26px;height:26px;display:grid;place-items:center;font-size:14px}
+#ov{position:fixed;inset:0;display:none;place-items:center;background:rgba(11,16,38,.88);z-index:9;text-align:center;padding:20px}
+#ov div{font-size:54px;font-weight:900;color:var(--gold);animation:pop .4s}#ov small{display:block;font-size:20px;color:var(--fg);margin-top:8px}
+.win{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+</style></head><body><div id="app"></div><div id="ov"></div>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-var s=io(),$=function(q){return document.querySelector(q)},S=null,rcv=0,d={nm:"",c:"",n:"",b:"5"},pid,saved="";
-try{pid=localStorage.getItem("pid")||(localStorage.setItem("pid",Math.random().toString(36).slice(2,10)),localStorage.getItem("pid"));d.nm=localStorage.getItem("nm")||"";saved=sessionStorage.getItem("code")||""}catch(e){pid=Math.random().toString(36).slice(2,10)}
-function esc(x){var e=document.createElement("div");e.textContent=x==null?"":x;return e.innerHTML}
-s.on("connect",function(){if(saved)s.emit("join",{code:saved,name:d.nm,pid:pid},function(){})});
-s.on("state",function(x){S=x;rcv=Date.now();try{sessionStorage.setItem("code",x.code)}catch(e){}render()});
-function pl(){return Object.keys(S.players).map(function(i){var p=S.players[i];return '<div class="li"><span>'+esc(p.name)+(i===pid?" (you)":"")+(S.host===i?" ★":"")+'</span><span class="mut">₹'+p.purse+'L · '+p.squad.length+' won</span></div>'}).join("")}
-function render(){var f=document.activeElement,id=f&&f.id,pos=f&&f.selectionStart,h;
-if(!S){h='<h1>🔨 Friends Auction</h1><p class="mut">Bid on your friends. Join from any phone.</p><div class="card"><input id="nm" placeholder="Your name" maxlength="20" value="'+esc(d.nm)+'"><button id="cr">Create room</button></div><div class="card"><input id="cd" placeholder="Room code" maxlength="5" value="'+esc(d.c)+'"><button class="alt" id="jn">Join room</button></div><div class="mut" id="er"></div>'}
-else if(S.phase==="lobby"){var host=S.host===pid;h='<h1>Lobby</h1><div class="mut">Share this code</div><div class="code">'+esc(S.code)+'</div><h2>Players</h2><div class="card">'+pl()+'</div><h2>Up for auction ('+S.items.length+')</h2><div class="card">'+(S.items.map(function(i){return '<div class="li"><span>'+esc(i.n)+'</span><span class="mut">base ₹'+i.b+'L</span></div>'}).join("")||'<span class="mut">None yet</span>')+'</div>';
- h+=host?'<div class="card"><input id="in" placeholder="Friend name" maxlength="24" value="'+esc(d.n)+'"><div class="row"><input id="ib" type="number" min="1" value="'+esc(d.b)+'"><button id="ad">Add</button></div></div><button id="go"'+(S.items.length?"":" disabled")+'>Start auction</button>':'<div class="card mut">Waiting for host to start…</div>'}
-else if(S.phase==="live"){var it=S.items[S.idx],b=S.bid,lead=S.bidder===pid,p=S.players[pid]||{purse:0};
- h='<div class="mut">Room '+esc(S.code)+' · '+(S.idx+1)+'/'+S.items.length+'</div>'+(S.last?'<div class="ok">'+esc(S.last)+'</div>':'')+'<div class="card"><div class="mut">Now bidding</div><h1>'+esc(it.n)+'</h1><div class="mut">Base ₹'+it.b+'L</div><div class="big">'+(b?'₹'+b+'L':'—')+'</div><div class="mut">'+(b?(lead?"You lead":esc(S.bidderName)+" leads"):"No bids yet")+'</div><div class="tmr" id="t"></div></div>';
- h+=b?'<div class="row">'+[1,5,10].map(function(n){return '<button data-b="'+(b+n)+'"'+(lead?" disabled":"")+'>+'+n+'L</button>'}).join("")+'</div>':'<button data-b="'+it.b+'">Bid ₹'+it.b+'L</button>';
- h+='<h2>Purses</h2><div class="card">'+pl()+'</div><div class="mut">Your purse: ₹'+p.purse+'L</div>'}
-else{h='<h1>🏆 Auction over</h1><div class="ok">'+esc(S.last)+'</div>';Object.keys(S.players).forEach(function(i){var p=S.players[i];h+='<div class="card"><b>'+esc(p.name)+'</b> <span class="mut">₹'+p.purse+'L left</span>'+(p.squad.map(function(q){return '<div class="li"><span>'+esc(q.n)+'</span><span class="mut">₹'+q.p+'L</span></div>'}).join("")||'<div class="mut">Won nobody</div>')+'</div>'})}
+var s=io(),$=q=>document.querySelector(q),S=null,rcv=0,prev=null,pid,saved="",d={nm:"",c:new URLSearchParams(location.search).get("room")||"",n:"",b:"5"},ac;
+try{pid=localStorage.getItem("pid");if(!pid){pid=Math.random().toString(36).slice(2,10);localStorage.setItem("pid",pid)}d.nm=localStorage.getItem("nm")||"";saved=sessionStorage.getItem("code")||""}catch(e){pid=pid||Math.random().toString(36).slice(2,10)}
+const esc=x=>{var e=document.createElement("div");e.textContent=x==null?"":x;return e.innerHTML};
+const col=n=>{var h=0;for(var c of String(n))h=(h*31+c.charCodeAt(0))%360;return"hsl("+h+",60%,50%)"};
+const av=n=>`<span class="av" style="background:${col(n)}">${esc(String(n)[0]||"?").toUpperCase()}</span>`;
+function tone(f,t,v){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;o.connect(g);g.connect(ac.destination);g.gain.value=v;o.start();o.stop(ac.currentTime+t)}catch(e){}}
+s.on("connect",()=>{if(saved)s.emit("join",{code:saved,name:d.nm,pid:pid},()=>{})});
+s.on("state",x=>{var old=S;S=x;rcv=Date.now();try{sessionStorage.setItem("code",x.code)}catch(e){}
+ if(old&&x.bid>old.bid&&x.idx===old.idx)tone(660,.12,.08);
+ if(x.last&&x.last!==prev&&prev!==null&&/^SOLD/.test(x.last)){tone(180,.3,.15);var m=x.last.replace("SOLD: ","").split(" to ");$("#ov").innerHTML="<div>🔨 SOLD!<small>"+esc(m[0])+" \u2192 "+esc(m[1])+"</small></div>";$("#ov").style.display="grid";setTimeout(()=>$("#ov").style.display="none",2200)}
+ prev=x.last||"";render()});
+const pl=()=>Object.keys(S.players).map(i=>{var p=S.players[i];return`<div class="li"><span>${av(p.name)}${esc(p.name)}${i===pid?" (you)":""}${S.host===i?" ★":""}</span><span class="mut">\u20B9${p.purse}L \u00B7 ${p.squad.length} won</span></div>`}).join("");
+function render(){var f=document.activeElement,id=f&&f.id,pos=f&&f.selectionStart,h,ho=S&&S.host===pid;
+if(!S){h=`<div class="hero"><h1>\uD83D\uDD28 Friends Auction</h1><p>Bid on your friends in a live auction. Create a room, share the code, play on your phones.</p></div><div class="card"><input id="nm" placeholder="Your name" maxlength="20" value="${esc(d.nm)}"><button id="cr">Create room</button></div><div class="card"><input id="cd" placeholder="Room code" maxlength="5" value="${esc(d.c)}"><button class="alt" id="jn">Join room</button></div><div class="mut" id="er"></div><h2>How it works</h2><div class="card"><div class="step"><b>1</b><span>Host creates a room and adds friends\u2019 names with a base price</span></div><div class="step"><b>2</b><span>Everyone joins with the code and gets the same purse</span></div><div class="step"><b>3</b><span>Bid live. Timer ends, highest bidder wins!</span></div></div>`}
+else{h=`<div class="top"><span>\uD83D\uDD28 Friends Auction</span><span class="pill">Room ${esc(S.code)}</span></div>`;
+ if(S.phase==="lobby"){h+=`<div class="card" style="text-align:center"><div class="mut">Room code</div><div class="code">${esc(S.code)}</div><button class="alt" id="cp">\uD83D\uDCCB Copy invite link</button></div><h2>Players (${Object.keys(S.players).length})</h2><div class="card">${pl()}</div><h2>Up for auction (${S.items.length})</h2><div class="card">${S.items.map((i,k)=>`<div class="li"><span>${av(i.n)}${esc(i.n)}</span><span class="mut">base \u20B9${i.b}L${ho?` <button class="x" data-d="${k}">\u00D7</button>`:""}</span></div>`).join("")||'<span class="mut">None yet</span>'}</div>`;
+  h+=ho?`<div class="card"><input id="in" placeholder="Friend name" maxlength="24" value="${esc(d.n)}"><div class="row"><input id="ib" type="number" min="1" placeholder="Base \u20B9L" value="${esc(d.b)}"><button id="ad">Add friend</button></div></div><div class="card"><div class="mut">Purse per player (\u20B9 lakhs)</div><input id="pu" type="number" min="10" max="1000" value="${S.purse}"></div><button id="go"${S.items.length?"":" disabled"}>\uD83D\uDE80 Start auction</button>`:`<div class="card mut">Waiting for the host to start\u2026</div>`}
+ else if(S.phase==="live"){var it=S.items[S.idx],b=S.bid,lead=S.bidder===pid,me=S.players[pid]||{purse:0},dis=lead?" disabled":"";
+  h+=`<div class="mut">Item ${S.idx+1} of ${S.items.length}</div>${S.last?`<div class="ok">${esc(S.last)}</div>`:""}<div class="card"><div class="mut">Now bidding</div><h1>${av(it.n)}${esc(it.n)}</h1><div class="mut">Base \u20B9${it.b}L</div><div class="big">${b?"\u20B9"+b+"L":"\u2014"}</div><div class="${lead?"ok":"mut"}">${b?(lead?"You are leading!":esc(S.bidderName)+" leads"):"No bids yet"}</div><div class="bar"><i id="pb"></i></div><div class="tmr" id="t"></div></div>`;
+  h+=b?`<div class="row">${[1,5,10].map(n=>`<button data-b="${b+n}"${dis}>+${n}L</button>`).join("")}</div>`:`<button data-b="${it.b}">Bid \u20B9${it.b}L</button>`;
+  h+=`<div class="mut" style="margin-top:8px">Your purse: \u20B9${me.purse}L</div>`+(ho?`<button class="red" id="sk" style="margin-top:10px">Sold now / skip</button>`:"");
+  h+=`<h2>Live feed</h2><div class="card">${S.log.map(l=>`<div class="li mut">${esc(l)}</div>`).join("")||'<span class="mut">No activity</span>'}</div><h2>Purses</h2><div class="card">${pl()}</div>`}
+ else{h+=`<h1>\uD83C\uDFC6 Auction over</h1>`;Object.keys(S.players).sort((x,y)=>S.players[y].squad.length-S.players[x].squad.length||S.players[y].purse-S.players[x].purse).forEach((i,k)=>{var p=S.players[i];
+  h+=`<div class="card${k===0?" win":""}"><b>${k===0?"\uD83E\uDD47 ":""}${av(p.name)}${esc(p.name)}</b> <span class="mut">\u20B9${p.purse}L left</span>${p.squad.map(q=>`<div class="li"><span>${esc(q.n)}</span><span class="mut">\u20B9${q.p}L</span></div>`).join("")||'<div class="mut">Won nobody</div>'}</div>`})}}
 $("#app").innerHTML=h;
-var on=function(q,fn){var e=$(q);if(e)e.onclick=fn},inp=function(q,k){var e=$(q);if(e)e.oninput=function(){d[k]=e.value}};
+var on=(q,fn)=>{var e=$(q);if(e)e.onclick=fn},inp=(q,k)=>{var e=$(q);if(e)e.oninput=()=>d[k]=e.value};
 inp("#nm","nm");inp("#cd","c");inp("#in","n");inp("#ib","b");
-on("#cr",function(){if(!d.nm.trim())return;try{localStorage.setItem("nm",d.nm)}catch(e){}s.emit("create",{name:d.nm,pid:pid})});
-on("#jn",function(){if(!d.nm.trim()||!d.c.trim())return;try{localStorage.setItem("nm",d.nm)}catch(e){}s.emit("join",{code:d.c,name:d.nm,pid:pid},function(e){if(e)$("#er").textContent=e})});
-on("#ad",function(){if(d.n.trim()){s.emit("add",{n:d.n,b:d.b});d.n=""}});on("#go",function(){s.emit("start")});
-document.querySelectorAll("[data-b]").forEach(function(e){e.onclick=function(){s.emit("bid",+e.dataset.b)}});
+var save=()=>{try{localStorage.setItem("nm",d.nm)}catch(e){}};
+on("#cr",()=>{if(!d.nm.trim())return;save();s.emit("create",{name:d.nm,pid:pid})});
+on("#jn",()=>{if(!d.nm.trim()||!d.c.trim())return;save();s.emit("join",{code:d.c,name:d.nm,pid:pid},e=>{if(e)$("#er").textContent=e})});
+on("#ad",()=>{if(d.n.trim()){s.emit("add",{n:d.n,b:d.b});d.n=""}});on("#go",()=>s.emit("start"));on("#sk",()=>s.emit("skip"));
+on("#cp",()=>{var u=location.origin+"?room="+S.code;(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>$("#cp").textContent="\u2705 Copied!").catch(()=>prompt("Copy this link",u))});
+var pu=$("#pu");if(pu)pu.onchange=()=>s.emit("cfg",pu.value);
+document.querySelectorAll("[data-b]").forEach(e=>e.onclick=()=>s.emit("bid",+e.dataset.b));
+document.querySelectorAll("[data-d]").forEach(e=>e.onclick=()=>s.emit("del",+e.dataset.d));
 if(id&&$("#"+id)){var e=$("#"+id);e.focus();try{e.setSelectionRange(pos,pos)}catch(x){}}}
-setInterval(function(){var t=$("#t");if(t&&S)t.textContent=Math.max(0,Math.ceil((S.left-(Date.now()-rcv))/1000))+"s"},250);
+setInterval(()=>{var t=$("#t");if(t&&S&&S.phase==="live"){var l=Math.max(0,S.left-(Date.now()-rcv));t.textContent=Math.ceil(l/1000)+"s";var p=$("#pb");if(p)p.style.width=(S.dur?Math.min(100,l/S.dur*100):0)+"%"}},200);
 render();
 </script></body></html>

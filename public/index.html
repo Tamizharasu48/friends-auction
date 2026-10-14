@@ -1,69 +1,104 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0b1026">
-<title>Friends Auction</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0a0a0a">
+<title>Friends Auction: Bid on your friends, live</title>
+<meta name="description" content="Free live auction game to play with friends. No signup. Create a room, share the code, and bid on your friends from your phone.">
+<meta property="og:title" content="Friends Auction"><meta property="og:description" content="Auction your friends live. No signup, free."><meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔨</text></svg>">
 <style>
-:root{--bg:#0b1026;--card:#151b3a;--card2:#1c2450;--fg:#eef1ff;--mut:#98a2d0;--gold:#ffc83d;--pink:#ff4d8d;--ok:#35e0a1;--bd:#2a3366}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 50% -100px,#2b2f7a,var(--bg));background-attachment:fixed;color:var(--fg);font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);min-height:100vh}
-#app{max-width:480px;margin:0 auto;padding:14px 16px 40px}
-.top{display:flex;justify-content:space-between;align-items:center;padding:6px 0 12px;font-weight:800}
-.pill{background:var(--card2);border:1px solid var(--bd);border-radius:99px;padding:4px 12px;font-size:13px;color:var(--gold)}
-h1{font-size:30px;margin:0 0 6px;letter-spacing:-.02em}h2{font-size:12px;margin:20px 0 8px;color:var(--mut);text-transform:uppercase;letter-spacing:.12em}
-.hero{background:linear-gradient(135deg,#ff4d8d,#ffc83d);color:#2b1200;border-radius:20px;padding:22px 18px;margin-bottom:14px}.hero h1{margin:0 0 6px}.hero p{margin:0;font-weight:600}
+:root{--bg:#0a0a0a;--card:#141414;--c2:#1e1e1e;--fg:#f5f5f5;--mut:#8a8a8a;--or:#ff8a00;--gr:#12c765;--red:#ff4545;--bd:#2a2a2a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);min-height:100vh}
+#app{max-width:760px;margin:0 auto;padding:12px 14px 48px}
+h1{font-size:clamp(34px,8vw,56px);margin:10px 0 18px;line-height:1.05;letter-spacing:-.03em;text-align:center;font-weight:900}h1 em{display:block;font-style:normal;color:var(--or)}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:12px}
-input{width:100%;padding:13px;border-radius:12px;border:1px solid var(--bd);background:#0e1431;color:var(--fg);font-size:16px;margin-bottom:8px}
-input:focus{outline:2px solid var(--gold);border-color:transparent}
-button{font:inherit;font-weight:700;padding:13px;border-radius:12px;border:0;background:linear-gradient(135deg,var(--gold),#ff9f1c);color:#2b1200;width:100%;cursor:pointer;transition:transform .08s}
-button:active{transform:scale(.97)}button.alt{background:var(--card2);color:var(--fg);border:1px solid var(--bd)}button.red{background:linear-gradient(135deg,var(--pink),#ff2e63);color:#fff}button:disabled{opacity:.35}
-button.x{width:auto;padding:2px 10px;background:none;color:var(--mut);font-size:20px}
-.row{display:flex;gap:8px}.row>*{flex:1}.mut{color:var(--mut);font-size:14px}.ok{color:var(--ok);font-weight:700}
-.code{font-size:38px;font-weight:900;letter-spacing:.2em;color:var(--gold)}
-.big{font-size:56px;font-weight:900;line-height:1.1;color:var(--gold);animation:pop .25s}@keyframes pop{from{transform:scale(1.2)}to{transform:scale(1)}}
-.li{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bd)}.li:last-child{border:0}
-.av{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;font-weight:800;font-size:14px;margin-right:8px;color:#fff;vertical-align:middle}
-.bar{height:8px;background:var(--card2);border-radius:9px;overflow:hidden;margin:10px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--ok),var(--gold),var(--pink));width:100%}
-.tmr{font-size:28px;font-weight:900}.step{display:flex;gap:10px;padding:6px 0}.step b{background:var(--gold);color:#2b1200;border-radius:50%;min-width:26px;height:26px;display:grid;place-items:center;font-size:14px}
-#ov{position:fixed;inset:0;display:none;place-items:center;background:rgba(11,16,38,.88);z-index:9;text-align:center;padding:20px}
-#ov div{font-size:54px;font-weight:900;color:var(--gold);animation:pop .4s}#ov small{display:block;font-size:20px;color:var(--fg);margin-top:8px}
-.win{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
-</style></head><body><div id="app"></div><div id="ov"></div>
+input,textarea{width:100%;padding:14px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--fg);font:inherit;margin-bottom:10px}
+label{display:block;color:var(--mut);font-weight:700;font-size:14px;margin:4px 0 6px}
+input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--or);outline-offset:1px}
+button{font:inherit;font-weight:700;padding:14px;border-radius:12px;border:0;background:linear-gradient(135deg,var(--or),#ff9f1c);color:#1a0d00;width:100%;cursor:pointer;transition:transform .08s}
+button:active{transform:scale(.97)}button:disabled{opacity:.35;cursor:not-allowed}
+button.alt{background:var(--c2);color:var(--fg);border:1px solid var(--bd)}button.red{background:#2a1010;color:var(--red);border:1px solid #5a2020}
+button.bid{background:linear-gradient(135deg,var(--gr),#0fa656);color:#fff;font-size:20px;padding:18px}button.x{width:auto;padding:2px 10px;background:none;color:var(--mut);font-size:20px}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}.chip{border:1px solid #5a3a10;background:#2a1a08;color:#ffc27a;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:700}.chip.p{border-color:#4a2a6a;background:#201028;color:#d9a8ff}
+.teams{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:6px 0 14px}.tm{width:46px;height:46px;border-radius:50%;padding:0;font-size:22px;background:var(--c2);border:2px solid transparent}.tm.on{border-color:var(--or);background:#2a1a08}
+.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}.mut{color:var(--mut);font-size:14px}.ok{color:var(--gr);font-weight:700}
+.tag{display:inline-block;padding:2px 9px;border-radius:6px;font-size:12px;font-weight:700;background:#3a1515;color:#ff7a7a;margin-right:6px}.tag.o{background:#2a1a3a;color:#c9a0ff}
+.pv{background:var(--card);border:1px solid var(--bd);border-radius:16px;overflow:hidden;margin-bottom:12px}.pb{height:6px;background:var(--c2)}.pb i{display:block;height:100%;width:100%;background:var(--or);transition:width .2s linear}
+.ph{display:flex;justify-content:space-between;align-items:center;padding:14px}.ph h2{margin:6px 0 0;font-size:26px}
+.tb{min-width:70px;text-align:center;border:1px solid #6a4a10;background:#2a1a08;border-radius:12px;padding:8px 10px}.tb b{font-size:30px;color:var(--or);display:block;line-height:1}.tb.low b{color:var(--red)}
+.base{text-align:right;color:var(--mut);font-size:13px;margin-right:12px}.base b{display:block;color:var(--fg);font-size:24px}
+.act{display:flex;gap:10px;align-items:center;padding:12px 14px;border-top:1px solid var(--bd)}.act button.bid{flex:1}.act .pu{font-size:13px;color:var(--mut)}.act .pu b{color:var(--gr);display:block}
+.sq{width:50px;padding:14px 0;flex:none}
+.tabs{display:flex;background:var(--card);border:1px solid var(--bd);border-radius:14px 14px 0 0}.tabs button{background:none;color:var(--mut);border-radius:0;padding:12px 4px;font-size:14px}.tabs button.on{background:#2a1a08;color:var(--or)}
+.pane{background:var(--card);border:1px solid var(--bd);border-top:0;border-radius:0 0 14px 14px;padding:10px 14px;min-height:140px}
+.li{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--bd);gap:8px}.li:last-child{border:0}
+.av{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--c2);margin-right:8px;font-size:16px;vertical-align:middle}.on{color:var(--gr)}
+.code{font-size:44px;font-weight:900;letter-spacing:.2em;color:var(--or);text-align:center}
+#md{position:fixed;inset:0;display:none;background:var(--bg);z-index:8;overflow:auto;padding:14px}#md .in{max-width:760px;margin:0 auto}
+.mt{display:flex;gap:6px;margin:10px 0 14px;overflow:auto}.mt button{width:auto;white-space:nowrap;background:none;color:var(--mut);padding:10px 14px}.mt button.on{background:var(--c2);color:var(--fg)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pc{background:var(--c2);border:1px solid var(--bd);border-radius:12px;padding:10px 12px;display:flex;justify-content:space-between;gap:6px}.pc b{display:block}.pc .m{color:var(--gr);font-weight:800;text-align:right}
+#ov{position:fixed;inset:0;display:none;place-items:center;background:rgba(10,10,10,.92);z-index:9;text-align:center}#ov div{font-size:56px;font-weight:900;color:var(--or);animation:pop .4s}#ov small{display:block;font-size:22px;color:var(--fg);margin-top:8px}
+@keyframes pop{from{transform:scale(1.2)}to{transform:scale(1)}}#tt{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--c2);border:1px solid var(--bd);padding:10px 18px;border-radius:99px;display:none;z-index:10}
+.win{border-color:var(--or)}.top{display:flex;justify-content:space-between;align-items:center;padding:6px 0 12px;font-weight:800}.pill{background:#2a1a08;color:var(--or);border-radius:99px;padding:5px 13px;font-size:13px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body><div id="app"></div><div id="md"><div class="in" id="mi"></div></div><div id="ov" role="status"></div><div id="tt" role="status"></div>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-var s=io(),$=q=>document.querySelector(q),S=null,rcv=0,prev=null,pid,saved="",d={nm:"",c:new URLSearchParams(location.search).get("room")||"",n:"",b:"5"},ac;
-try{pid=localStorage.getItem("pid");if(!pid){pid=Math.random().toString(36).slice(2,10);localStorage.setItem("pid",pid)}d.nm=localStorage.getItem("nm")||"";saved=sessionStorage.getItem("code")||""}catch(e){pid=pid||Math.random().toString(36).slice(2,10)}
+var s=io(),$=q=>document.querySelector(q),S=null,rcv=0,prev=null,pid,saved="",mute=false,tab="a",mt="u",mo=false,E=["🦁","🐯","🦅","🐺","🔥","⚡","👑","🚀","🌟","🎯"],d={nm:"",c:new URLSearchParams(location.search).get("room")||"",n:"",b:"5",e:"🦁"},ac;
+try{pid=localStorage.getItem("pid");if(!pid){pid=Math.random().toString(36).slice(2,10);localStorage.setItem("pid",pid)}d.nm=localStorage.getItem("nm")||"";d.e=localStorage.getItem("em")||"🦁";saved=sessionStorage.getItem("code")||"";mute=localStorage.getItem("mute")==="1"}catch(e){pid=pid||Math.random().toString(36).slice(2,10)}
 const esc=x=>{var e=document.createElement("div");e.textContent=x==null?"":x;return e.innerHTML};
-const col=n=>{var h=0;for(var c of String(n))h=(h*31+c.charCodeAt(0))%360;return"hsl("+h+",60%,50%)"};
-const av=n=>`<span class="av" style="background:${col(n)}">${esc(String(n)[0]||"?").toUpperCase()}</span>`;
-function tone(f,t,v){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;o.connect(g);g.connect(ac.destination);g.gain.value=v;o.start();o.stop(ac.currentTime+t)}catch(e){}}
-s.on("connect",()=>{if(saved)s.emit("join",{code:saved,name:d.nm,pid:pid},()=>{})});
+const av=(p)=>`<span class="av">${esc(p.e||String(p.name||"?")[0].toUpperCase())}</span>`;
+const tg=i=>i.t?`<span class="tag o">${esc(i.t)}</span>`:"";
+function toast(t){var e=$("#tt");e.textContent=t;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display="none",2200)}
+function tone(f,t,v){if(mute)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain();o.frequency.value=f;o.connect(g);g.connect(ac.destination);g.gain.value=v;o.start();o.stop(ac.currentTime+t)}catch(e){}}
+s.on("connect",()=>{if(saved)s.emit("join",{code:saved,name:d.nm,pid:pid,e:d.e},()=>{})});
 s.on("state",x=>{var old=S;S=x;rcv=Date.now();try{sessionStorage.setItem("code",x.code)}catch(e){}
  if(old&&x.bid>old.bid&&x.idx===old.idx)tone(660,.12,.08);
- if(x.last&&x.last!==prev&&prev!==null&&/^SOLD/.test(x.last)){tone(180,.3,.15);var m=x.last.replace("SOLD: ","").split(" to ");$("#ov").innerHTML="<div>🔨 SOLD!<small>"+esc(m[0])+" \u2192 "+esc(m[1])+"</small></div>";$("#ov").style.display="grid";setTimeout(()=>$("#ov").style.display="none",2200)}
+ if(x.last&&x.last!==prev&&prev!==null&&/^SOLD/.test(x.last)){tone(180,.3,.15);var m=x.last.replace("SOLD: ","").split(" to ");$("#ov").innerHTML="<div>🔨 SOLD<small>"+esc(m[0])+" → "+esc(m[1])+"</small></div>";$("#ov").style.display="grid";setTimeout(()=>$("#ov").style.display="none",2200)}
  prev=x.last||"";render()});
-const pl=()=>Object.keys(S.players).map(i=>{var p=S.players[i];return`<div class="li"><span>${av(p.name)}${esc(p.name)}${i===pid?" (you)":""}${S.host===i?" ★":""}</span><span class="mut">\u20B9${p.purse}L \u00B7 ${p.squad.length} won</span></div>`}).join("");
+const pl=()=>Object.keys(S.players).map(i=>{var p=S.players[i];return`<div class="li"><span>${av(p)}${esc(p.name)}${i===pid?" (you)":""}${S.host===i?" ★":""} <span class="${S.online.includes(i)?"on":"mut"}">●</span></span><span class="mut">₹${p.purse}L · ${p.squad.length} won</span></div>`}).join("");
+const sq=p=>p.squad.map(q=>`<div class="li"><span>${esc(q.n)}</span><span class="ok">₹${q.p}L</span></div>`).join("")||'<div class="mut">No wins yet.</div>';
+const lb=()=>Object.values(S.players).sort((x,y)=>y.squad.length-x.squad.length||y.purse-x.purse);
+function modal(){var m=$("#md");m.style.display=mo&&S?"block":"none";if(!mo||!S)return;var c=n=>`<div class="pc"><span><b>${esc(n.n)}</b>${tg(n)}</span><span class="m">${n.p?"₹"+n.p+"L":"₹"+n.b+"L"}<br><span class="mut">${n.w||"Base"}</span></span></div>`,h="";
+ var up=S.items.slice(S.idx+(S.phase==="live"?1:0)),sold=[];Object.values(S.players).forEach(p=>p.squad.forEach(q=>sold.push({n:q.n,p:q.p,w:p.name})));
+ if(mt==="u")h=up.length?`<div class="g2">${up.map(c).join("")}</div>`:'<div class="mut">Nobody left in the queue.</div>';
+ if(mt==="s")h=sold.length?`<div class="g2">${sold.map(c).join("")}</div>`:'<div class="mut">Nothing sold yet.</div>';
+ if(mt==="n")h=S.un.length?S.un.map(n=>`<div class="li">${esc(n)}</div>`).join(""):'<div class="mut">Nobody unsold.</div>';
+ if(mt==="l")h=lb().map((p,k)=>`<div class="li"><span>${k+1}. ${av(p)}${esc(p.name)}</span><span class="mut">${p.squad.length} won · ₹${p.purse}L left</span></div>`).join("");
+ $("#mi").innerHTML=`<div class="row"><b style="flex:1">Auction board</b><button class="alt" style="width:auto;flex:none" id="cl">✕</button></div><div class="mt">${[["u","Upcoming ("+up.length+")"],["s","Sold ("+sold.length+")"],["n","Unsold ("+S.un.length+")"],["l","Leaderboard"]].map(x=>`<button data-m="${x[0]}" class="${mt===x[0]?"on":""}">${x[1]}</button>`).join("")}</div>${h}`;
+ $("#cl").onclick=()=>{mo=false;modal()};document.querySelectorAll("[data-m]").forEach(e=>e.onclick=()=>{mt=e.dataset.m;modal()})}
 function render(){var f=document.activeElement,id=f&&f.id,pos=f&&f.selectionStart,h,ho=S&&S.host===pid;
-if(!S){h=`<div class="hero"><h1>\uD83D\uDD28 Friends Auction</h1><p>Bid on your friends in a live auction. Create a room, share the code, play on your phones.</p></div><div class="card"><input id="nm" placeholder="Your name" maxlength="20" value="${esc(d.nm)}"><button id="cr">Create room</button></div><div class="card"><input id="cd" placeholder="Room code" maxlength="5" value="${esc(d.c)}"><button class="alt" id="jn">Join room</button></div><div class="mut" id="er"></div><h2>How it works</h2><div class="card"><div class="step"><b>1</b><span>Host creates a room and adds friends\u2019 names with a base price</span></div><div class="step"><b>2</b><span>Everyone joins with the code and gets the same purse</span></div><div class="step"><b>3</b><span>Bid live. Timer ends, highest bidder wins!</span></div></div>`}
-else{h=`<div class="top"><span>\uD83D\uDD28 Friends Auction</span><span class="pill">Room ${esc(S.code)}</span></div>`;
- if(S.phase==="lobby"){h+=`<div class="card" style="text-align:center"><div class="mut">Room code</div><div class="code">${esc(S.code)}</div><button class="alt" id="cp">\uD83D\uDCCB Copy invite link</button></div><h2>Players (${Object.keys(S.players).length})</h2><div class="card">${pl()}</div><h2>Up for auction (${S.items.length})</h2><div class="card">${S.items.map((i,k)=>`<div class="li"><span>${av(i.n)}${esc(i.n)}</span><span class="mut">base \u20B9${i.b}L${ho?` <button class="x" data-d="${k}">\u00D7</button>`:""}</span></div>`).join("")||'<span class="mut">None yet</span>'}</div>`;
-  h+=ho?`<div class="card"><input id="in" placeholder="Friend name" maxlength="24" value="${esc(d.n)}"><div class="row"><input id="ib" type="number" min="1" placeholder="Base \u20B9L" value="${esc(d.b)}"><button id="ad">Add friend</button></div></div><div class="card"><div class="mut">Purse per player (\u20B9 lakhs)</div><input id="pu" type="number" min="10" max="1000" value="${S.purse}"></div><button id="go"${S.items.length?"":" disabled"}>\uD83D\uDE80 Start auction</button>`:`<div class="card mut">Waiting for the host to start\u2026</div>`}
- else if(S.phase==="live"){var it=S.items[S.idx],b=S.bid,lead=S.bidder===pid,me=S.players[pid]||{purse:0},dis=lead?" disabled":"";
-  h+=`<div class="mut">Item ${S.idx+1} of ${S.items.length}</div>${S.last?`<div class="ok">${esc(S.last)}</div>`:""}<div class="card"><div class="mut">Now bidding</div><h1>${av(it.n)}${esc(it.n)}</h1><div class="mut">Base \u20B9${it.b}L</div><div class="big">${b?"\u20B9"+b+"L":"\u2014"}</div><div class="${lead?"ok":"mut"}">${b?(lead?"You are leading!":esc(S.bidderName)+" leads"):"No bids yet"}</div><div class="bar"><i id="pb"></i></div><div class="tmr" id="t"></div></div>`;
-  h+=b?`<div class="row">${[1,5,10].map(n=>`<button data-b="${b+n}"${dis}>+${n}L</button>`).join("")}</div>`:`<button data-b="${it.b}">Bid \u20B9${it.b}L</button>`;
-  h+=`<div class="mut" style="margin-top:8px">Your purse: \u20B9${me.purse}L</div>`+(ho?`<button class="red" id="sk" style="margin-top:10px">Sold now / skip</button>`:"");
-  h+=`<h2>Live feed</h2><div class="card">${S.log.map(l=>`<div class="li mut">${esc(l)}</div>`).join("")||'<span class="mut">No activity</span>'}</div><h2>Purses</h2><div class="card">${pl()}</div>`}
- else{h+=`<h1>\uD83C\uDFC6 Auction over</h1>`;Object.keys(S.players).sort((x,y)=>S.players[y].squad.length-S.players[x].squad.length||S.players[y].purse-S.players[x].purse).forEach((i,k)=>{var p=S.players[i];
-  h+=`<div class="card${k===0?" win":""}"><b>${k===0?"\uD83E\uDD47 ":""}${av(p.name)}${esc(p.name)}</b> <span class="mut">\u20B9${p.purse}L left</span>${p.squad.map(q=>`<div class="li"><span>${esc(q.n)}</span><span class="mut">\u20B9${q.p}L</span></div>`).join("")||'<div class="mut">Won nobody</div>'}</div>`})}}
+if(!S){h=`<h1>Auction your<em>Friends, Live</em></h1><div class="chips"><div class="chip">🔥 Free · No signup</div><div class="chip p">🚀 Live bidding</div></div>
+<div class="card"><label>Your name</label><input id="nm" placeholder="Enter your name" maxlength="20" autocomplete="nickname" value="${esc(d.nm)}"><label>Pick your badge</label><div class="teams">${E.map(e=>`<button class="tm${d.e===e?" on":""}" data-e="${e}" aria-label="Badge ${e}">${e}</button>`).join("")}</div><button id="cr">Create room</button></div>
+<div class="card"><label>Room code</label><input id="cd" placeholder="Enter room code" maxlength="5" autocapitalize="characters" value="${esc(d.c)}"><button class="alt" id="jn">Join room</button><div class="mut" id="er" role="alert" style="margin-top:8px"></div></div>
+<div class="card mut"><b style="color:var(--fg)">How it works</b><br>The host adds friends with a base price and starts. Everyone bids from their phone. When the timer ends, the highest bidder wins and pays from their purse. Unsold friends get one more round.</div>`}
+else{h=`<div class="top"><span>🔨 Friends Auction</span><span class="pill">Room ${esc(S.code)}</span></div>`;
+ if(S.phase==="lobby"){h+=`<div class="card"><div class="mut" style="text-align:center">Share this code</div><div class="code">${esc(S.code)}</div><button class="alt" id="cp">Copy invite link</button></div><div class="card"><b>Players (${Object.keys(S.players).length})</b>${pl()}</div><div class="card"><b>Up for auction (${S.items.length})</b>${S.items.map((i,k)=>`<div class="li"><span>${esc(i.n)} ${tg(i)}</span><span class="mut">base ₹${i.b}L${ho?` <button class="x" data-d="${k}" aria-label="Remove ${esc(i.n)}">×</button>`:""}</span></div>`).join("")||'<div class="mut">No friends added yet.</div>'}</div>`;
+  h+=ho?`<div class="card"><label>Add friends (one per line, or name|tag)</label><textarea id="in" rows="3" placeholder="Arun|Batsman&#10;Karthik|Bowler">${esc(d.n)}</textarea><div class="row"><input id="ib" type="number" min="1" placeholder="Base ₹L" value="${esc(d.b)}"><button id="ad" style="margin-bottom:10px">Add friends</button></div><label>Purse per player (₹ lakhs)</label><input id="pu" type="number" min="10" max="1000" value="${S.purse}"></div><button id="go"${S.items.length?"":" disabled"}>Start auction</button>`:`<div class="card mut">Waiting for the host to start.</div>`}
+ else if(S.phase==="live"){var it=S.items[S.idx],b=S.bid,lead=S.bidder===pid,me=S.players[pid]||{purse:0,squad:[]},dis=(lead||S.paused)?" disabled":"",nb=b?b+1:it.b;
+  h+=`<div class="pv"><div class="pb"><i id="pb"></i></div><div class="ph"><div>${tg(it)}${it.again?'<span class="tag">2nd chance</span>':""}<h2>${esc(it.n)}</h2><div class="${lead?"ok":"mut"}">${b?(lead?"You are leading":esc(S.bidderName)+" leads at ₹"+b+"L"):"No bids yet"}</div></div><div style="display:flex;align-items:center"><div class="base">BASE<b>₹${it.b}L</b></div><div class="tb" id="tb"><b id="t"></b><span class="mut">SEC</span></div></div></div><div class="act"><div class="pu">Purse<b>₹${me.purse}L</b></div><button class="bid" data-b="${nb}"${dis}>${S.paused?"PAUSED":(lead?"LEADING":"BID ₹"+nb+"L")}</button><button class="alt sq" id="bl" aria-label="Auction board">☰</button></div>${b&&!lead&&!S.paused?`<div class="act" style="padding-top:0"><button class="alt" data-b="${b+5}">+5L</button><button class="alt" data-b="${b+10}">+10L</button></div>`:""}</div>`;
+  h+=`<div class="tabs">${[["a","Activity"],["q","Squad ("+me.squad.length+")"],["p","Players"],["g","Settings"]].map(x=>`<button data-t="${x[0]}" class="${tab===x[0]?"on":""}">${x[1]}</button>`).join("")}</div><div class="pane">`;
+  if(tab==="a")h+=S.log.map(l=>`<div class="li mut">${esc(l)}</div>`).join("")||'<div class="mut">No activity yet.</div>';
+  if(tab==="q")h+=sq(me);if(tab==="p")h+=pl();
+  if(tab==="g")h+=`<button class="alt" id="mu" style="margin-bottom:8px">${mute?"🔇 Sound off":"🔊 Sound on"}</button>`+(ho?`<div class="row"><button class="alt" id="ps">${S.paused?"Resume":"Pause"}</button><button class="alt" id="sk">Sold now / skip</button></div><button class="red" id="en" style="margin-top:8px">End auction</button>`:'<div class="mut">Only the host can pause or end.</div>');
+  h+=`</div>`}
+ else{h+=`<h1 style="font-size:34px">🏆 Auction over</h1>`;lb().forEach((p,k)=>{h+=`<div class="card${k===0?" win":""}"><b>${k===0?"🥇 ":""}${av(p)}${esc(p.name)}</b> <span class="mut">₹${p.purse}L left</span>${sq(p)}</div>`});h+=`<button class="alt" id="sh">Copy results</button>`}}
 $("#app").innerHTML=h;
 var on=(q,fn)=>{var e=$(q);if(e)e.onclick=fn},inp=(q,k)=>{var e=$(q);if(e)e.oninput=()=>d[k]=e.value};
 inp("#nm","nm");inp("#cd","c");inp("#in","n");inp("#ib","b");
-var save=()=>{try{localStorage.setItem("nm",d.nm)}catch(e){}};
-on("#cr",()=>{if(!d.nm.trim())return;save();s.emit("create",{name:d.nm,pid:pid})});
-on("#jn",()=>{if(!d.nm.trim()||!d.c.trim())return;save();s.emit("join",{code:d.c,name:d.nm,pid:pid},e=>{if(e)$("#er").textContent=e})});
-on("#ad",()=>{if(d.n.trim()){s.emit("add",{n:d.n,b:d.b});d.n=""}});on("#go",()=>s.emit("start"));on("#sk",()=>s.emit("skip"));
-on("#cp",()=>{var u=location.origin+"?room="+S.code;(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>$("#cp").textContent="\u2705 Copied!").catch(()=>prompt("Copy this link",u))});
+var save=()=>{try{localStorage.setItem("nm",d.nm);localStorage.setItem("em",d.e)}catch(e){}};
+document.querySelectorAll("[data-e]").forEach(e=>e.onclick=()=>{d.e=e.dataset.e;render()});
+on("#cr",()=>{if(!d.nm.trim())return($("#nm").focus());save();s.emit("create",{name:d.nm,pid:pid,e:d.e})});
+on("#jn",()=>{if(!d.nm.trim())return($("#nm").focus());if(!d.c.trim())return($("#cd").focus());save();s.emit("join",{code:d.c,name:d.nm,pid:pid,e:d.e},e=>{if(e)$("#er").textContent=e})});
+on("#ad",()=>{if(d.n.trim()){s.emit("add",{n:d.n,b:d.b});d.n=""}});on("#go",()=>s.emit("start"));on("#sk",()=>s.emit("skip"));on("#ps",()=>s.emit("pause"));
+on("#en",()=>{if(confirm("End the auction for everyone?"))s.emit("end")});on("#bl",()=>{mo=true;modal()});
+on("#mu",()=>{mute=!mute;try{localStorage.setItem("mute",mute?"1":"0")}catch(e){}render()});
+var cb=(t,ok)=>(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(ok).catch(()=>prompt("Copy this",t));
+on("#cp",()=>cb(location.origin+"?room="+S.code,()=>toast("Invite link copied")));
+on("#sh",()=>cb("🏆 Friends Auction results\n"+lb().map(p=>p.name+": "+(p.squad.map(q=>q.n+" ₹"+q.p+"L").join(", ")||"nobody")+" (₹"+p.purse+"L left)").join("\n"),()=>toast("Results copied")));
 var pu=$("#pu");if(pu)pu.onchange=()=>s.emit("cfg",pu.value);
 document.querySelectorAll("[data-b]").forEach(e=>e.onclick=()=>s.emit("bid",+e.dataset.b));
 document.querySelectorAll("[data-d]").forEach(e=>e.onclick=()=>s.emit("del",+e.dataset.d));
-if(id&&$("#"+id)){var e=$("#"+id);e.focus();try{e.setSelectionRange(pos,pos)}catch(x){}}}
-setInterval(()=>{var t=$("#t");if(t&&S&&S.phase==="live"){var l=Math.max(0,S.left-(Date.now()-rcv));t.textContent=Math.ceil(l/1000)+"s";var p=$("#pb");if(p)p.style.width=(S.dur?Math.min(100,l/S.dur*100):0)+"%"}},200);
+document.querySelectorAll("[data-t]").forEach(e=>e.onclick=()=>{tab=e.dataset.t;render()});
+if(id&&$("#"+id)){var e=$("#"+id);e.focus();try{e.setSelectionRange(pos,pos)}catch(x){}}modal()}
+setInterval(()=>{var t=$("#t");if(t&&S&&S.phase==="live"){var l=S.paused?S.left:Math.max(0,S.left-(Date.now()-rcv));t.textContent=Math.ceil(l/1000);$("#tb").className="tb"+(l<5000?" low":"");var p=$("#pb");if(p)p.style.width=(S.dur?Math.min(100,l/S.dur*100):0)+"%"}},200);
 render();
 </script></body></html>

@@ -41,7 +41,7 @@ io.on("connection", s => {
     for (const k in r.players) r.players[k].purse = r.purse; push(r); } });
   s.on("add", d => { if (!host() || r.phase !== "lobby") return;
     String(d.n || "").split(/[\n,]/).map(x => x.trim()).filter(Boolean).forEach(n => {
-      if (r.items.length < 60) { const [a, t] = n.split("|"); r.items.push({ n: a.trim().slice(0, 24), t: (t || "").trim().slice(0, 14), b: Math.max(1, Math.floor(+d.b) || 5) }); } });
+      if (r.items.length < 100) { const [a, t] = n.split("|"); r.items.push({ n: a.trim().slice(0, 24), t: (t || "").trim().slice(0, 14), b: Math.max(1, Math.floor(+d.b) || 5) }); } });
     push(r); });
   s.on("del", i => { if (host() && r.phase === "lobby" && r.items[i]) { r.items.splice(i, 1); push(r); } });
   s.on("start", () => { if (host() && r.phase === "lobby" && r.items.length) { r.phase = "live"; r.idx = 0; arm(r, T0); push(r); } });
